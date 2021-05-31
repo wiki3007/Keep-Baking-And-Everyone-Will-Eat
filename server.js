@@ -11,7 +11,7 @@ app.get("/", function (req, res) {
 })
 
 app.post("/game", function (req, res) {
-    res.status(200).send(req.body.nick + ", tu wstawić właściwą grę z obsługą fetcha i NeDB.");
+    res.status(200).send(req.body.nick + ", tu wstawić właściwą grę z obsługą fetcha i NeDB. Dodatkowa zmiana dla testów automatycznego deployu.");
 })
 
 app.listen(PORT, function () {
