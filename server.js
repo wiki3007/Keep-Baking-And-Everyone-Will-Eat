@@ -1,17 +1,41 @@
-let express = require("express");
-let app = express();
-let path = require("path")
-let bodyParser = require("body-parser")
-let PORT = process.env.PORT || 3000;
+const express = require("express");
+const app = express()
+const path = require("path")
+const bodyParser = require("body-parser")
+const PORT = process.env.PORT || 3000;
+var session = require('express-session')
+var Datastore = require('nedb')
 
+var coll1 = new Datastore({
+    filename: 'ALLTHEINFOBRUH.db',
+    autoload: true
+});
+var doc = {
+    a: "a",
+    b: "b"
+};
+coll1.findOne({ _id: 'colourssS' }, function (err, doc) {
+    console.log("----- obiekt pobrany z bazy: ",doc)
+    console.log("----- formatowanie obiektu js na format JSON: ")
+    console.log(JSON.stringify(doc, null, 5))
+});
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("static"));
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  }));
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname + "/static/index.html"));
+    console.log(req.sessionID);
+    res.sendFile(path.join(__dirname + "/static/start.html"));
 })
 
 app.post("/game", function (req, res) {
-    res.status(200).send(req.body.nick + ", tu wstawić właściwą grę z obsługą fetcha i NeDB. Test fetcha.");
+    res.sendFile(path.join(__dirname + "/static/game.html"));
 })
 
 app.listen(PORT, function () {
