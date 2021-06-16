@@ -43,7 +43,7 @@ coll1.insert(bakerRes, function (err, baker) {
 })
 coll1.findOne({ _id: 'colourssS' }, function (err, doc) {
     console.log("----- obiekt pobrany z bazy: ", doc)
-    console.log("----- formatowanie obiektu JS na format JSON: ")
+    console.log("----- formatowanie obiektu js na format JSON: ")
     console.log(JSON.stringify(doc, null, 5))
 });
 app.use(bodyParser.urlencoded({ extended: true }));
