@@ -11,6 +11,22 @@ var coll1 = new Datastore({
     autoload: true
 });
 let tempObj = {}
+let cashierReq = {
+    id_cashier: null,
+    color1: null,
+    color2: null,
+    color3: null,
+    towerLevel: null,
+    code: null
+}
+let bakerRes = {
+    id_baker: null,
+    color1: null,
+    color2: null,
+    color3: null,
+    towerLevel: null,
+    code: null
+}
 let usersDb = new Datastore({
     filename: "users.db",
     autoload: true
@@ -19,6 +35,12 @@ var doc = {
     a: "a",
     b: "b"
 };
+coll1.insert(cashierReq, function (err, cashier) {
+    console.log("Dodano dokument (obiekt): " + cashier);
+})
+coll1.insert(bakerRes, function (err, baker) {
+    console.log("Dodano dokument (obiekt): " + baker);
+})
 coll1.findOne({ _id: 'colourssS' }, function (err, doc) {
     console.log("----- obiekt pobrany z bazy: ", doc)
     console.log("----- formatowanie obiektu js na format JSON: ")
