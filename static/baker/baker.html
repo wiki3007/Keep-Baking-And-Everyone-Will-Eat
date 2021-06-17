@@ -9,13 +9,27 @@
         Piekarz
     </title>
     <script defer src="/static/cashier/bundle.js?9e871c3f587acb73298e"></script>
+    <script>
+        let cake = {
+            color1: "1",
+            color2: "1",
+            color3: "1",
+            towerLevel: "1",
+            code: "1"
+        }
+        function test() {
+            fetch('/checkCake', {
+                method: 'POST',
+                body: JSON.stringify(cake),
+                headers: { "Content-Type": "application/json" }
+            })
+        }
+    </script>
 </head>
 
 <body>
-    <h1>
-        Piekarz
-        <div id="root"></div>
-    </h1>
+    <h1 onclick="test()">Piekarz</h1>
+    <div id="root"></div>
 </body>
 
 </html>

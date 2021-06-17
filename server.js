@@ -22,6 +22,7 @@ coll1.findOne({ _id: 'colourssS' }, function (err, doc) {
     console.log(JSON.stringify(doc, null, 5))
 });
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/static", express.static('./static/'))
 
 app.use(session({
@@ -96,6 +97,9 @@ app.get("/getOrder", function (req, res) {
     })
 
 
+})
+app.post("/checkCake", function (req, res) {
+    console.log(req.body);
 })
 
 app.listen(PORT, function () {
