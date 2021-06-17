@@ -22,7 +22,7 @@ coll1.findOne({ _id: 'colourssS' }, function (err, doc) {
     console.log(JSON.stringify(doc, null, 5))
 });
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("static"));
+app.use("/static", express.static('./static/'))
 
 app.use(session({
     secret: 'keyboard cat',
@@ -46,10 +46,12 @@ app.post("/gameChoose", function (req, res) {
     })
     coll1.findOne({ sessionID: req.sessionID }, function (err, sessionCheck) {
         if (sessionCheck.gameType == "Kasjer") {
-            res.status(200).sendFile(path.join(__dirname + "/static/cashier.html"));
+            console.log(__dirname);
+            res.status(200).sendFile(path.join(__dirname + "/static/cashier/cashier.html"));
         }
         else if (sessionCheck.gameType == "Piekarz") {
-            res.status(200).sendFile(path.join(__dirname + "/static/baker.html"))
+            console.log(__dirname);
+            res.status(200).sendFile(path.join(__dirname + "/static/baker/baker.html"))
         }
         else {
             res.status(400).send("Coś poszło nie tak...");
