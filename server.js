@@ -11,36 +11,11 @@ var coll1 = new Datastore({
     autoload: true
 });
 let tempObj = {}
-let cashierReq = {
-    id_cashier: null,
-    color1: null,
-    color2: null,
-    color3: null,
-    towerLevel: null,
-    code: null
-}
-let bakerRes = {
-    id_baker: null,
-    color1: null,
-    color2: null,
-    color3: null,
-    towerLevel: null,
-    code: null
-}
-let usersDb = new Datastore({
-    filename: "users.db",
-    autoload: true
-})
+let randomColor1, randomColor2, randomColor3, randomTower, cashierSend, newColor1, newColor2, newColor3, newTowerLevel, orderText;
 var doc = {
     a: "a",
     b: "b"
 };
-coll1.insert(cashierReq, function (err, cashier) {
-    console.log("Dodano dokument (obiekt): " + cashier);
-})
-coll1.insert(bakerRes, function (err, baker) {
-    console.log("Dodano dokument (obiekt): " + baker);
-})
 coll1.findOne({ _id: 'colourssS' }, function (err, doc) {
     console.log("----- obiekt pobrany z bazy: ", doc)
     console.log("----- formatowanie obiektu JS na format JSON: ")
@@ -66,10 +41,10 @@ app.post("/gameChoose", function (req, res) {
     tempObj.nick = req.body.nick;
     tempObj.gameType = req.body.gameType;
     console.log(tempObj);
-    usersDb.insert(tempObj, function (err, newTemp) {
+    coll1.insert(tempObj, function (err, newTemp) {
         console.log("Dodano dokument (obiekt): " + newTemp);
     })
-    usersDb.findOne({ sessionID: req.sessionID }, function (err, sessionCheck) {
+    coll1.findOne({ sessionID: req.sessionID }, function (err, sessionCheck) {
         if (sessionCheck.gameType == "Kasjer") {
             res.status(200).sendFile(path.join(__dirname + "/static/cashier.html"));
         }
@@ -80,6 +55,35 @@ app.post("/gameChoose", function (req, res) {
             res.status(400).send("Coś poszło nie tak...");
         }
     })
+})
+app.get("/getOrder", function (req, res) {
+    coll1.findOne({ _id: "colourssS" }, function (err, newOrder) {
+        //console.log(newCashier.color3);
+        randomColor1 = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+        newColor1 = newOrder[randomColor1]
+        randomColor2 = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+        newColor2 = newOrder[randomColor2]
+        randomColor3 = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+        newColor3 = newOrder[randomColor3]
+    })
+    coll1.findOne({ _id: "caketower" }, function (err, newTower) {
+        randomTower = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+        console.log(newTower[randomTower]);
+        newTowerLevel = newTower[randomTower];
+    })
+    coll1.findOne({ _id: "cashier" }, function (err, newCashier) {
+        //console.log(newCashier["color1"]);
+        newCashier.color1 = newColor1
+        newCashier.color2 = newColor2
+        newCashier.color3 = newColor3
+        newCashier.towerLevel = newTowerLevel
+        newCashier.code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+        console.log(newCashier);
+        orderText = randomColor1 + " x jeden kolor \n" + randomColor2 + "x drugi kolor \n" + randomColor3 + "x trzeci kolor \nLiczba pięter: " + randomTower;
+        console.log(orderText);
+        res.end(orderText);
+    })
+
 })
 
 app.listen(PORT, function () {
