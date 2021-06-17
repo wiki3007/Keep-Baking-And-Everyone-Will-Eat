@@ -11,7 +11,7 @@ var coll1 = new Datastore({
     autoload: true
 });
 let tempObj = {}
-let randomColor1, randomColor2, randomColor3, randomTower, cashierSend, newColor1, newColor2, newColor3, newTowerLevel, orderText;
+let randomColor1, randomColor2, randomColor3, randomTower, cashierUpdate, cashierSend, newColor1, newColor2, newColor3, newTowerLevel, orderText;
 var doc = {
     a: "a",
     b: "b"
@@ -77,12 +77,22 @@ app.get("/getOrder", function (req, res) {
         newCashier.color2 = newColor2
         newCashier.color3 = newColor3
         newCashier.towerLevel = newTowerLevel
+        console.log(newColor1, newColor2, newColor3, newTowerLevel);
         newCashier.code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
         console.log(newCashier);
-        orderText = randomColor1 + " x jeden kolor \n" + randomColor2 + "x drugi kolor \n" + randomColor3 + "x trzeci kolor \nLiczba pięter: " + randomTower;
+        orderText = randomColor1 + " x jeden kolor \n" + randomColor2 + " x drugi kolor \n" + randomColor3 + " x trzeci kolor \nLiczba pięter: " + randomTower;
         console.log(orderText);
+        cashierUpdate = newCashier
+        console.log(cashierUpdate);
+        coll1.update({ _id: "cashier" }, { $set: cashierUpdate }, {}, function (err, updatedCashier) {
+            console.log("zaktualizowano " + err)
+        })
+        coll1.findOne({ _id: "cashier" }, {}, function (err, newCashier2) {
+            console.log(newCashier2);
+        })
         res.end(orderText);
     })
+
 
 })
 
