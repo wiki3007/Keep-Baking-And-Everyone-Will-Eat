@@ -8,13 +8,40 @@
     <title>
         Piekarz
     </title>
+<<<<<<< HEAD
     <script defer src="./static/baker/bundle.js?fb1b90b88032e35f51d5"></script>
+=======
+    <script defer src="./static/baker/bundle.js?a9ffe7b02b22e7662810"></script>
+    <script type="module">
+
+        import Main from "./bundle.js"
+        function test() {
+            let cake = {
+                color1: main.color1,
+                color2: main.color2,
+                color3: main.color3,
+                towerLevel: main.cakelevelarr,
+            }
+            fetch('/checkCake', {
+                method: 'POST',
+                body: JSON.stringify(cake),
+                headers: { "Content-Type": "application/json" }
+            })
+        }
+
+    </script>
+>>>>>>> cc0bb2f (Jeden z ostatnich commitów)
 </head>
 
 <body>
     <h1>
+<<<<<<< HEAD
         Piekarz
+=======
+        Piekarz (wysłanie pliku)
+>>>>>>> cc0bb2f (Jeden z ostatnich commitów)
     </h1>
+    <button onclick="test()">Zamówienie gotowe</button>
     <div id="counting"></div>
     <div id="root"></div>
 

@@ -99,6 +99,9 @@ app.get("/getOrder", function (req, res) {
 })
 app.post("/checkCake", function (req, res) {
     console.log(req.body);
+    coll1.update({ _id: "baker" }, { $set: req.body }, {}, function (err, updatedBaker) {
+        console.log("Zaaktualizowano: " + updatedBaker);
+    })
 })
 
 app.listen(PORT, function () {
