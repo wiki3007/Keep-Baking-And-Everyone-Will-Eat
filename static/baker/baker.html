@@ -9,11 +9,25 @@
         Piekarz
     </title>
     <script defer src="./static/baker/bundle.js?a9ffe7b02b22e7662810"></script>
+    <script>
+        let cake = {
+            color1: main.color1,
+            color2: main.color2,
+            color3: main.color3,
+            towerLevel: main.cakelevelarr,
+        }
+        function test() {
+            fetch('/checkCake', {
+                method: 'POST',
+                body: JSON.stringify(cake),
+                headers: { "Content-Type": "application/json" }
+            })
+        }
 </head>
 
 <body>
-    <h1>
-        Piekarz
+    <h1 onclick="test()">
+        Piekarz (wysłanie pliku)
     </h1>
     <div id="counting"></div>
     <div id="root"></div>
