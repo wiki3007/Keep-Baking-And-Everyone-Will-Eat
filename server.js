@@ -113,6 +113,16 @@ app.post("/checkCake", function (req, res) {
     })
     console.log(kasjerjson)
     console.log(piekarzjson)
+     res.status(200).sendFile(path.join(__dirname + "/static/wannasee.html"))
+})
+
+app.get("/gameresults", function (req, res) {
+    if(kasjerjson == piekarzjson){
+    res.send("Wygrana!");
+    }
+    else{
+        res.send("przegrana :(");
+    }
 })
 
 app.listen(PORT, function () {
