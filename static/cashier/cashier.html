@@ -14,8 +14,11 @@
                 .then((response) => response.text())
                 .then((data) => {
                     console.log(data);
+                let div = document.getElementById("counting");
+        div.textContent = data;
                 })
         }
+        
     </script>
 </head>
 
