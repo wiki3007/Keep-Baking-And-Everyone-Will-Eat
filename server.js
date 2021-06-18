@@ -102,6 +102,17 @@ app.post("/checkCake", function (req, res) {
     coll1.update({ _id: "baker" }, { $set: req.body }, {}, function (err, updatedBaker) {
         console.log("Zaaktualizowano: " + updatedBaker);
     })
+    coll1.findOne({_id: "baker"}, {}, function (err, doc2) {
+        piekarzjson= JSON.stringify(doc2, null, 5)
+
+        
+    })
+    coll1.findOne({ _id: "cashier" }, {}, function (err, doc) {
+          kasjerjson = JSON.stringify(doc, null, 5)
+
+    })
+    console.log(kasjerjson)
+    console.log(piekarzjson)
 })
 
 app.listen(PORT, function () {
