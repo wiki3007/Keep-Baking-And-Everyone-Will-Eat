@@ -81,7 +81,6 @@ app.get("/getOrder", function (req, res) {
         newCashier.color3 = newColor3
         newCashier.towerLevel = newTowerLevel
         console.log(newColor1, newColor2, newColor3, newTowerLevel);
-        newCashier.code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
         console.log(newCashier);
         orderText = randomColor1 + " x jeden kolor \n" + randomColor2 + " x drugi kolor \n" + randomColor3 + " x trzeci kolor \nLiczba pięter: " + randomTower;
         console.log(orderText);
